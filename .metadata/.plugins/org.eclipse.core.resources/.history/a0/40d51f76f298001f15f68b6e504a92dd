@@ -1,0 +1,27 @@
+package com.app.controllers;
+
+
+
+//import com.example.cabbooking.dto.BookingRequest;
+//import com.example.cabbooking.entity.Booking;
+//import com.example.cabbooking.service.BookingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.app.dto.BookingRequest;
+import com.app.pojo.Booking;
+import com.app.service.BookingService;
+
+@RestController
+@RequestMapping("/api/bookings")
+public class BookingController {
+
+    @Autowired
+    private BookingService bookingService;
+
+    @PostMapping
+    public Booking bookCab(@RequestBody BookingRequest request) {
+        return bookingService.bookCab(request.getCabId(), request.getUserId());
+    }
+}
+

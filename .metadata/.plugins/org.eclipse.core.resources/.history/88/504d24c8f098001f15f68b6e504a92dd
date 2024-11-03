@@ -1,0 +1,65 @@
+package com.app.controllers;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.pojo.Railway;
+import com.app.service.RailwayService;
+
+@RestController
+public class RailwayController {
+	
+	
+	@Autowired
+	public RailwayService railwayService;
+	
+	@GetMapping("/")
+	public String Home() {
+		return "this is railway backend";	
+	}
+	
+	@GetMapping("/railway")
+	public ResponseEntity< List<Railway> >  getAll(){
+		List<Railway> list=railwayService.getAll();
+		if(!list.isEmpty()) {
+			return new ResponseEntity<List<Railway>>(list, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Railway>>(list, HttpStatus.NO_CONTENT);	
+	}
+	
+	@PostMapping("/railway")
+	public String insert(@RequestBody  Railway railway) {
+		System.out.println(railway);
+		return railwayService.insert(railway);	
+	}
+	
+	@GetMapping("/railway/{id}")
+	public Railway getById(@PathVariable   Long id) {
+		return railwayService.getById(id);
+	}
+	
+	@PutMapping("/railway")
+	public String update(@RequestBody  Railway railway) {
+		return railwayService.update(railway);
+	}
+	
+	@DeleteMapping("/railway/{id}")
+	public Railway delete(@PathVariable  Long id) {
+		return railwayService.delete(id);
+	}
+	
+	
+	
+
+}

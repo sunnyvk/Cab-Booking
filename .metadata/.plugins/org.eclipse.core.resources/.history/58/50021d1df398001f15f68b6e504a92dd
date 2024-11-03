@@ -1,0 +1,42 @@
+package com.app.service;
+
+
+
+import com.app.customException.CabNotAvailableException;
+import com.app.pojo.*;
+import com.app.repository.BookingRepository;
+import com.app.repository.CabRepository;
+
+import java.time.LocalDateTime;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class BookingService {
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @Autowired
+    private CabRepository cabRepository;
+
+    @Transactional
+    public Booking bookCab(Long cabId, Long userId) {
+        Cab cab = cabRepository.lockCab(cabId);
+
+        if (cab == null) {
+            throw new CabNotAvailableException("Cab not available for booking.");
+        }
+
+        Booking booking = new Booking();
+        booking.setUserId(userId);
+        booking.setCabId(cabId);
+        booking.setBookingStatus("CONFIRMED");
+        booking.setStartTime(LocalDateTime.now());
+        
+        return bookingRepository.save(booking);
+    }
+}

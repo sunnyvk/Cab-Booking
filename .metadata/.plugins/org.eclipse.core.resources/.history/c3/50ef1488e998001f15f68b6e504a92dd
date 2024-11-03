@@ -1,0 +1,49 @@
+package com.app.pojo;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Railway {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
+	@Column(nullable = false)
+	String Name;
+	@Column(nullable = false)
+	String Start_time;
+	@Column(nullable = false)
+	String End_time;
+	@Column(nullable = false)
+	String Source;
+	@Column(nullable = false)
+	String Destination;
+	@Column(nullable = false)
+	String station_code;
+	@Column(nullable = false)
+	String Distance;
+	@Column(nullable = false)
+	String Frequency;
+	@Enumerated(EnumType.STRING)
+	Category Category;
+
+
+}

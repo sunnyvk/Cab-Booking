@@ -1,0 +1,31 @@
+package com.app.service;
+
+//package com.example.cabbooking.service;
+
+//import com.example.cabbooking.entity.Cab;
+//import com.example.cabbooking.dto.NewCabRequest;
+//import com.example.cabbooking.repository.CabRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.dto.NewCabRequest;
+import com.app.pojo.Cab;
+import com.app.repository.CabRepository;
+
+@Service
+public class CabService {
+
+    @Autowired
+    private CabRepository cabRepository;
+
+    // Method to add a new cab
+    public Cab addNewCab(NewCabRequest request) {
+        Cab cab = new Cab();
+        cab.setLicensePlate(request.getLicensePlate());
+        cab.setModel(request.getModel());
+        cab.setLocation(request.getLocation());
+        
+        return cabRepository.save(cab);
+    }
+}
+

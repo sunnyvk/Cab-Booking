@@ -1,0 +1,10 @@
+package com.app.dto;
+
+public class CabLocationUpdateRequest {
+
+	
+	   private Long cabId;
+	    private String newLocation;
+
+	    // Getters and Setters
+}
